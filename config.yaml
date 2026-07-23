@@ -127,19 +127,54 @@ companies:
 # level wording.
 
 role_keywords:
+    # Software engineering
     - software engineer
+    - software developer
     - swe
+    - backend engineer
+    - backend developer
+    - frontend engineer
+    - frontend developer
+    - full stack engineer
+    - full-stack engineer
+    - full stack developer
+    - full-stack developer
+    - platform engineer
+    - infrastructure engineer
+    - cloud engineer
+    - devops engineer
+    - site reliability engineer
+    - sre
+
+    # Data roles
+    - data engineer
+    - analytics engineer
+    - database engineer
+    - data scientist
+    - data analyst
+
+    # AI / ML / research
     - machine learning
     - ml engineer
-    - applied ai
-    - applied scientist
     - ai engineer
+    - applied ai
+    - applied machine learning
+    - applied scientist
+    - research engineer
+    - research scientist
+    - computer vision
+    - 3d vision
+    - nlp engineer
+    - natural language processing
+    - llm engineer
+    - generative ai
+    - mlops
+
+    # Customer-facing technical roles
     - forward deployed
     - fde
-    - research engineer
     - deployment engineer
     - solutions engineer
-    - data scientist
 
 # Internship titles are often broader than full-time titles (for example,
 # "AI Intern", "Software Development Intern", or "Data Science Co-op").
