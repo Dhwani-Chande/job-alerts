@@ -1,0 +1,221 @@
+# ============================================================
+# Job Alert Config
+# ============================================================
+# Companies are grouped by which ATS (applicant tracking system)
+# they use, because each ATS has a different public API.
+#
+# To find a company's board slug:
+#   Greenhouse: job page URL looks like boards.greenhouse.io/<slug>
+#               or job-boards.greenhouse.io/<slug>
+#   Lever:      jobs.lever.co/<slug>
+#   Ashby:      jobs.ashbyhq.com/<slug>
+#
+# Just add/remove slugs below — no code changes needed.
+
+companies:
+    greenhouse:
+        # AI / ML
+        - anthropic
+        - scaleai
+        - xai
+        - togetherai
+        # Data / infra / dev tools
+        - databricks
+        - mongodb
+        - cloudflare
+        - datadog
+        - twilio
+        - elastic
+        - grafanalabs
+        - dbtlabsinc
+        - temporaltechnologies
+        - vercel
+        - netlify
+        - gitlab
+        - sourcegraph91
+        # Fintech
+        - stripe
+        - robinhood
+        - coinbase
+        - affirm
+        - chime
+        - marqeta
+        - mercury
+        - brex
+        - point72
+        - janestreet
+        - akunacapital
+        # Product / consumer / enterprise
+        - figma
+        - pinterest
+        - airbnb
+        - dropbox
+        - samsara
+        - gusto
+        - duolingo
+        - roblox
+        - instacart
+        - asana
+        - flexport
+        - chanzuckerberginitiative
+        - discord
+        - reddit
+        - airtable
+        - calendly
+        - webflow
+        - squarespace
+        - doordashusa
+        - lyft
+        - oscar
+
+    lever:
+        - palantir
+        - plaid
+        - voleon
+        - veeva
+        - matchgroup
+        - highspot
+        - outreach
+        - zoox
+        - mistral
+        - wandb
+
+    ashby:
+        # Candidate slugs for boards that 404'd — uncomment & verify with --dry-run:
+        # - perplexity        # was perplexity-ai
+        # - runway            # was runwayml
+        # - exa               # was exa-ai
+        # - character         # characterai (moved off Greenhouse?)
+        # - snorkel           # was snorkelai
+        # - contextual        # was contextual-ai
+        - cohere
+        - hebbia
+        - writer
+        - abridge
+        - groq
+        - cerebras
+        - openai
+        - ramp
+        - linear
+        - vanta
+        - lambda
+        - replit
+        - cursor
+        - sierra
+        - elevenlabs
+        - notion
+        - deel
+        - cognition
+        - harvey
+        - decagon
+        - mercor
+        - supabase
+        - posthog
+        - eightsleep
+        - zip
+        - openrouter
+        - baseten
+        - modal
+
+# ------------------------------------------------------------
+# Title matching
+# ------------------------------------------------------------
+# A job is included if its title matches at least one
+# role keyword AND does not match any exclude keyword.
+# If require_new_grad_signal is true, the title must ALSO contain a
+# new-grad signal — set false to see all matching roles regardless of
+# level wording.
+
+role_keywords:
+    - software engineer
+    - swe
+    - machine learning
+    - ml engineer
+    - applied ai
+    - applied scientist
+    - ai engineer
+    - forward deployed
+    - fde
+    - research engineer
+    - deployment engineer
+    - solutions engineer
+    - data scientist
+
+# Internship titles are often broader than full-time titles (for example,
+# "AI Intern", "Software Development Intern", or "Data Science Co-op").
+# These keywords are used only when the title contains intern/internship/co-op.
+internship_role_keywords:
+    - software
+    - developer
+    - development
+    - machine learning
+    - ml
+    - artificial intelligence
+    - ai
+    - data science
+    - data engineer
+    - research
+    - applied scientist
+    - forward deployed
+    - deployment
+    - solutions engineer
+    - backend
+    - frontend
+    - full stack
+    - platform engineer
+    - cloud engineer
+    - devops
+    - infrastructure
+    - database
+    - computer science
+    - data analyst
+
+new_grad_keywords:
+    - new grad
+    - new graduate
+    - university grad
+    - early career
+    - entry level
+    - "2026"
+    - campus
+    - junior
+    - associate
+
+exclude_keywords:
+    - senior
+    - staff
+    - principal
+    - lead
+    - manager
+    - director
+    - sr.
+    - sr "
+    - head of
+    - vp
+
+require_new_grad_signal: false # set true once volume gets noisy
+
+# Only keep US-based (or remote-US) roles
+us_only: true
+
+# ------------------------------------------------------------
+# SimplifyJobs community feeds (cover Big Tech / Workday companies)
+# Sources: github.com/SimplifyJobs/New-Grad-Positions and
+# github.com/SimplifyJobs/Summer2026-Internships
+# These feeds are pre-curated, so role_keywords are NOT applied; instead we
+# filter by category, recency, sponsorship, seniority, and a tech-title check.
+# ------------------------------------------------------------
+simplifyjobs:
+    enabled: true
+    include_new_grad: true
+    include_internships: true
+    # Update this URL when SimplifyJobs moves to a new internship-season repo.
+    internship_url: https://raw.githubusercontent.com/SimplifyJobs/Summer2026-Internships/dev/.github/scripts/listings.json
+    categories: # options seen in feed: Software, AI/ML/Data,
+        - Software # Hardware, Quant, Product
+        - AI/ML/Data
+    max_age_days: 7 # only surface posts from the last N days
+    skip_citizenship_required: true # drop "U.S. Citizenship is Required" roles
+    # Drop roles the feed explicitly marks "Does Not Offer Sponsorship".
+    # Roles offering sponsorship get a ✅ badge + float to the top of the email.
+    skip_no_sponsorship: true
