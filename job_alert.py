@@ -213,8 +213,18 @@ def _fetch_simplify_feed(cfg, url, id_prefix, default_job_type):
         safe_text(k).lower().strip('" ')
         for k in (cfg.get("exclude_keywords") or [])
     ]
-    # Feed entries are sometimes miscategorized (statisticians, attendants,
-    # postdocs) — require an actual tech keyword in the title.
+    # By default, apply the same resume-tailored title keywords used for ATS
+    # boards. This prevents the broad Simplify categories from flooding the
+    # alert with unrelated software or data roles. Set apply_role_keywords to
+    # false to fall back to the broad technical-title check.
+    apply_role_keywords = sj.get("apply_role_keywords", True)
+    role_keywords = [
+        safe_text(k).lower() for k in (cfg.get("role_keywords") or [])
+    ]
+    internship_role_keywords = [
+        safe_text(k).lower()
+        for k in (cfg.get("internship_role_keywords") or role_keywords)
+    ]
     tech_re = re.compile(
         r"engineer|software|developer|swe|programmer|machine learning|\bml\b|"
         r"\bai\b|data scien|scientist|deployment|full[ -]?stack|backend|frontend",
@@ -237,7 +247,17 @@ def _fetch_simplify_feed(cfg, url, id_prefix, default_job_type):
             continue
 
         title = safe_text(j.get("title"))
-        if not tech_re.search(title):
+        if apply_role_keywords:
+            internship = is_internship_title(title)
+            target_keywords = (
+                internship_role_keywords if internship else role_keywords
+            )
+            if not any(
+                _contains_keyword(title.lower(), keyword)
+                for keyword in target_keywords
+            ):
+                continue
+        elif not tech_re.search(title):
             continue
         if LEVEL_RE.search(title):
             continue
